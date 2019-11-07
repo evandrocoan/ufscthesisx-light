@@ -1,0 +1,6 @@
+[submodule "setup"]
+	path = setup
+	url = https://github.com/ufsc/ufscthesisx-setup
+[submodule "pictures"]
+	path = pictures
+	url = https://github.com/ufsc/ufscthesisx-images
