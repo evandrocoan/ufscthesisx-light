@@ -11,7 +11,7 @@ Esse projeto não está vinculado a nenhum órgão da UFSC.
 ## Modelo em PDF
 
 Se você quer ter uma ideia de como é o modelo,
-a compilação deve resultar no seguinte [PDF](https://github.com/evandroforks/abntex2-ufsc-imagens/blob/master/pdf_exemplo_completo.pdf)
+a compilação deve resultar no seguinte [PDF](https://github.com/evandroforks/ufscthesisx-imagens/blob/master/pdf_exemplo_completo_light.pdf)
 
 
 ## Instalar `LaTeX` e `abnTeX2`
