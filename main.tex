@@ -112,6 +112,8 @@
 \programa{Programa de Pós-Graduação em XXXXXX}
 % FIXME Substituir 'Campus XXXXXX ou Centro de XXXXXX' pelo campus ou centro adequado.
 \centro{Campus XXXXXX ou Centro de XXXXXX}
+% FIXME: Preencha com Campus XXXXXX     ou     Centro de XXXXXX
+\campus{Campus Reitor João David Ferreira Lima}
 \preambulo
 {%
 \imprimirtipotrabalho~submetida~ao~\imprimirprograma~da~\imprimirinstituicao~para~a~obtenção~do~título~de~\imprimirformacao.
@@ -235,7 +237,9 @@
 % Referências bibliográficas
 % ----------------------------------------------------------
 \begingroup
-    \SingleSpacing\printbibliography[title=REFERÊNCIAS]
+    \SingleSpacing
+	\setlength\bibitemsep{\baselineskip}
+    \printbibliography[title=REFERÊNCIAS]
 \endgroup
 
 % ----------------------------------------------------------
