@@ -12,6 +12,11 @@
 % ------------------------------------------------------------------------
 % ------------------------------------------------------------------------
 
+% https://tex.stackexchange.com/questions/516058/why-my-biblatex-language-is-not-changing-when-passing-the-language-on-my-documen
+% https://tex.stackexchange.com/questions/385895/how-to-make-passoptionstopackage-add-the-option-as-the-last
+% \PassOptionsToPackage{brazil,main=english,spanish,french}{babel}
+\PassOptionsToPackage{main=brazil,english,spanish,french}{babel}
+
 \documentclass[
     % -- opções da classe memoir --
     12pt, % tamanho da fonte
@@ -28,7 +33,7 @@
     %french, % idioma adicional para hifenização
     %spanish, % idioma adicional para hifenização
     brazil, % https://tex.stackexchange.com/questions/484400/changing-the-cleveref-package-language-conjunction-definition
-    brazilian, % o último idioma é o principal do documento
+    brazilian, % o último idioma é o principal do documento?
     ]{setup/ufscthesisx}
 
 \addbibresource{aftertext/references.bib} % Seus arquivos de referências
