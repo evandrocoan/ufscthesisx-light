@@ -18,25 +18,92 @@
 \PassOptionsToPackage{main=brazil,english,spanish,french}{babel}
 
 \documentclass[
-    % -- opções da classe memoir --
-    12pt, % tamanho da fonte
-    %openright, % capítulos começam em pág ímpar (insere página vazia caso preciso)
-    oneside, % para impressão no anverso. Oposto a twoside
-    a4paper, % tamanho do papel.
-    % -- opções da classe abntex2 --
-    chapter=TITLE, % títulos de capítulos convertidos em letras maiúsculas
-    section=TITLE, % títulos de seções convertidos em letras maiúsculas
-    %subsection=TITLE, % títulos de subseções convertidos em letras maiúsculas
-    %subsubsection=TITLE, % títulos de subsubseções convertidos em letras maiúsculas
-    % -- opções do pacote babel --
-    english, % idioma adicional para hifenização
-    %french, % idioma adicional para hifenização
-    %spanish, % idioma adicional para hifenização
-    brazil, % https://tex.stackexchange.com/questions/484400/changing-the-cleveref-package-language-conjunction-definition
-    brazilian, % o último idioma é o principal do documento?
-    ]{setup/ufscthesisx}
+% -- opções da classe memoir --
+12pt, % tamanho da fonte
+%openright, % capítulos começam em pág ímpar (insere página vazia caso preciso)
+oneside, % para impressão no anverso. Oposto a twoside
+a4paper, % tamanho do papel.
+% -- opções da classe abntex2 --
+chapter=TITLE, % títulos de capítulos convertidos em letras maiúsculas
+section=TITLE, % títulos de seções convertidos em letras maiúsculas
+%subsection=TITLE, % títulos de subseções convertidos em letras maiúsculas
+%subsubsection=TITLE, % títulos de subsubseções convertidos em letras maiúsculas
+% -- opções do pacote babel --
+english, % idioma adicional para hifenização
+%french, % idioma adicional para hifenização
+%spanish, % idioma adicional para hifenização
+brazil, % https://tex.stackexchange.com/questions/484400/changing-the-cleveref-package-language-conjunction-definition
+brazilian, % https://tex.stackexchange.com/questions/516058/why-isnt-my-biblatex-language-changing-when-passing-the-language-on-my-document
+]{setup/ufscthesisx}
 
 \addbibresource{aftertext/references.bib} % Seus arquivos de referências
+
+% https://tex.stackexchange.com/questions/516056/why-an-empty-or-not-biblatex-declaresourcemap-is-removing-my-bibliography-acces
+% https://github.com/abntex/biblatex-abnt/pull/56/files
+\DeclareStyleSourcemap{%% >>>2
+  % This maps some fields used in abntex2cite to biblatex fields.
+  \maps[datatype=bibtex]{%
+    \map{%
+      \step[fieldsource=conference-number,fieldtarget=number]%
+      \step[fieldsource=conference-year,fieldtarget=eventdate]%
+      \step[fieldsource=conference-location,fieldtarget=venue]%
+      \step[fieldsource=conference-number,fieldtarget=number]%
+      \step[fieldsource=org-short,fieldtarget=shortauthor]%
+      \step[fieldsource=urlaccessdate,fieldtarget=urldate]%
+      \step[fieldsource=year-presented,fieldtarget=eventyear]%
+      \step[fieldsource=furtherresp,fieldtarget=titleaddon]%
+      \step[typesource=journalpart,typetarget=supperiodical]%
+    }%
+    \map[overwrite=false]{%
+      \step[fieldsource=reprinted-from, final]%
+      \step[fieldset=related, origfieldval]%
+    }%
+    \map[overwrite=false]{%
+      \step[fieldsource=reprinted-text, final]%
+      \step[fieldset=relatedtype, fieldvalue={reprintfrom}]%
+    }%
+    \map{%
+      \pertype{patent}% Use the organization as sourcekey for patents
+      \step[fieldsource=organization, final]%
+      \step[fieldset=sortkey, origfieldval]%
+    }%
+    \map[overwrite=false]{%
+      \pertype{thesis}%
+      \pertype{phdthesis}%
+      \pertype{mastersthesis}%
+      \pertype{monography}%
+      \step[fieldset=bookpagination, fieldvalue={sheet}]%
+    }%
+    % remove fields that are always useless
+    \map{
+      \step[fieldset=abstract, null]
+      \step[fieldset=pagetotal, null]
+    }
+    % % remove URLs for types that are primarily printed
+    % \map{
+    %   \pernottype{software}
+    %   \pernottype{online}
+    %   \pernottype{report}
+    %   \pernottype{techreport}
+    %   \pernottype{standard}
+    %   \pernottype{manual}
+    %   \pernottype{misc}
+    %   \step[fieldset=url, null]
+    %   \step[fieldset=urldate, null]
+    % }
+    \map{
+      \pertype{inproceedings}
+      % remove mostly redundant conference information
+      \step[fieldset=venue, null]
+      \step[fieldset=eventdate, null]
+      \step[fieldset=eventtitle, null]
+      % do not show ISBN for proceedings
+      \step[fieldset=isbn, null]
+      % Citavi bug
+      \step[fieldset=volume, null]
+    }
+  }%
+}% <<<2
 
 % ---
 % Informações de dados para CAPA e FOLHA DE ROSTO
@@ -97,18 +164,18 @@
 % informações do PDF
 \makeatletter
 \hypersetup{
-        %pagebackref=true,
-        pdftitle={\@title},
-        pdfauthor={\@author},
-        pdfsubject={\imprimirpreambulo},
-        pdfcreator={LaTeX with abnTeX2},
-        pdfkeywords={ufsc, latex, abntex2},
-        colorlinks=true,            % false: boxed links; true: colored links
-        linkcolor=black,%blue,              % color of internal links
-        citecolor=black,%blue,              % color of links to bibliography
-        filecolor=black,%magenta,           % color of file links
-        urlcolor=black,%blue,
-        bookmarksdepth=4
+  %pagebackref=true,
+  pdftitle={\@title},
+  pdfauthor={\@author},
+  pdfsubject={\imprimirpreambulo},
+  pdfcreator={LaTeX with abnTeX2},
+  pdfkeywords={ufsc, latex, abntex2},
+  colorlinks=true,            % false: boxed links; true: colored links
+  linkcolor=black,%blue,              % color of internal links
+  citecolor=black,%blue,              % color of links to bibliography
+  filecolor=black,%magenta,           % color of file links
+  urlcolor=black,%blue,
+  bookmarksdepth=4
 }
 \makeatother
 % ---
@@ -206,9 +273,9 @@
 % Referências bibliográficas
 % ----------------------------------------------------------
 \begingroup
-    \SingleSpacing
-    \setlength\bibitemsep{\baselineskip}
-    \printbibliography[title=REFERÊNCIAS]
+  \SingleSpacing
+  \setlength\bibitemsep{\baselineskip}
+  \printbibliography[title=REFERÊNCIAS]
 \endgroup
 
 % ----------------------------------------------------------
@@ -227,8 +294,8 @@
 % Inicia os apêndices
 % ---
 \begin{apendicesenv}
-%   \partapendices*
-    \input{aftertext/apendice_a}
+  % \partapendices*
+  \input{aftertext/apendice_a}
 \end{apendicesenv}
 % ---
 
@@ -241,8 +308,8 @@
 % Inicia os anexos
 % ---
 \begin{anexosenv}
-%   \partanexos*
-    \input{aftertext/anexo_a}
+  % \partanexos*
+  \input{aftertext/anexo_a}
 \end{anexosenv}
 
 %---------------------------------------------------------------------
