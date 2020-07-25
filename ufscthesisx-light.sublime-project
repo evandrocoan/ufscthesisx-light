@@ -1,0 +1,94 @@
+{
+    "settings":
+    {
+        "TEXroot": "main.tex",
+        "rulers": [80],
+        "WrapPlus.semantic_line_wrap": true,
+        "WrapPlus.semantic_maximum_items_in_comma_separated_list": 1,
+        "WrapPlus.semantic_wrap_extension_percent": 100.0,
+        "WrapPlus.word_separator_characters": [ ".", "?", "!", ":" ],
+        "WrapPlus.alpha_separator_characters": [ "e", "and", "or", "ou", "{" ],
+        // "buildview.enabled": true,
+        "buildview.scroll": "last",
+        "buildview.focus_build": false,
+        "show_panel_on_build": true,
+        // "restore_output_view_scroll": true,
+    },
+    "folders":
+    [
+        {
+            "path": ".",
+            "folder_exclude_patterns":
+            [
+                "*cache",
+                "_gsdata_",
+                ".tmp.drivedownload",
+            ],
+        },
+    ],
+    "build_systems":
+    [
+        {
+            "name": "Monograph",
+            "cmd": ["make", "thesis", "--quiet"],
+
+            "shell": true,
+            "working_dir": "$project_path/",
+
+            "target": "exec",
+            "syntax": "Packages/Text/Plain text.tmLanguage",
+
+            "osx": { "file_regex": "^(...*?):([0-9]+): ([0-9]*)([^\\.]+)"},
+            "windows": { "file_regex": "^((?:.:)?[^:\n\r]*):([0-9]+):?([0-9]+)?:? (.*)$" },
+            "linux": {  "file_regex": "^(...*?):([0-9]+): ([0-9]*)([^\\.]+)" },
+
+            "variants":
+            [
+                {
+                    "name": "Thesis (Default)",
+                    "cmd": ["make", "thesis", "--quiet"],
+                    "env": {"debug": "1", "halt": "1"},
+                },
+                {
+                    "name": "Thesis (Default) [Remote]",
+                    "shell": true,
+                    "cmd": ["make", "remote", "--quiet"],
+                    "env": {"rules": "thesis debug='0' halt='1'", "debug": "0"},
+                },
+                {
+                    "name": "Thesis Biber",
+                    "cmd": ["make", "biber", "--quiet"],
+                    "env": {"debug": "1", "halt": "1"},
+                },
+                {
+                    "name": "Thesis Biber [Remote]",
+                    "shell": true,
+                    "cmd": ["make", "remote", "--quiet"],
+                    "env": {"rules": "biber debug='0' halt='1'", "debug": "0"},
+                },
+                {
+                    "name": "Thesis LaTeX",
+                    "cmd": ["make", "latex", "--quiet"],
+                    "env": {"debug": "1", "halt": "1"},
+                },
+                {
+                    "name": "Thesis LaTeX [Remote]",
+                    "shell": true,
+                    "cmd": ["make", "remote", "--quiet"],
+                    "env": {"rules": "latex debug='0' halt='1'", "debug": "0"},
+                },
+                {
+                    "name": "Thesis Veryclean",
+                    "cmd": ["make", "veryclean", "--quiet"],
+                    "env": {"debug": "1", "halt": "1"},
+                },
+                {
+                    "name": "Thesis Veryclean [Remote]",
+                    "shell": true,
+                    "cmd": ["make", "remote", "--quiet"],
+                    "env": {"rules": "veryclean debug='0' halt='1'", "debug": "0", "args": "--delete"},
+                },
+            ],
+        },
+    ]
+}
