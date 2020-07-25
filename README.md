@@ -1,17 +1,17 @@
-# Template para ufscthesisx
+# Template para ufscthesisx-light
 
 Modelo Canônico de TCC,
 Monografia,  Dissertação,
 Tese ou Relatório de Pós--Doutorado da UFSC com abnTeX2.
-Originado de endereço https://github.com/AdrianoRuseler/abntex2-ufsc com o nome `abntex2-ufsc`,
-este projeto foi renomeado para `ufscthesisx`.
+Originado de endereço https://github.com/ufsc/ufscthesisx com o nome `ufscthesisx`,
+este projeto foi renomeado para `ufscthesisx-light`.
 
 Esse projeto não está vinculado a nenhum órgão da UFSC.
 
 ## Modelo em PDF
 
 Se você quer ter uma ideia de como é o modelo,
-a compilação deve resultar no seguinte [PDF](https://github.com/evandroforks/ufscthesisx-imagens/blob/master/pdf_exemplo_completo_light.pdf)
+a compilação deve resultar no seguinte [PDF](../../../ufscthesisx-images/blob/master/pdf_exemplo_completo_light.pdf)
 
 
 ## Instalar `LaTeX` e `abnTeX2`
