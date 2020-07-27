@@ -43,15 +43,15 @@ sudo apt-get install xzdec
 ## Baixando diretamente modelo UFSC
 
 Caso queria,
-pode baixar diretamente o arquivo `zip` clique
-[aqui](https://github.com/UFSC/ufscthesisx/releases/download/v1.1/ufscthesisx.zip) e descompacte o arquivo.
+pode baixar diretamente o arquivo `zip` em
+https://github.com/UFSC/ufscthesisx-light/releases e descompacte o arquivo.
 
 
 ## Utilizando `git` para baixar o modelo USFC
 
 No diretório do seu projeto faça um clone (recursivo) dos arquivos do repositório:
 ```bash
-git clone --recursive https://github.com/ufsc/ufscthesisx
+git clone --recursive https://github.com/ufsc/ufscthesisx-light
 ```
 
 Este repositório já contém um exemplo de tese com uso avançado de conceitos e LaTeX.
@@ -243,7 +243,7 @@ a Biblioteca Central disponibiliza um site específico para as normas e foi com 
 # Mudanças
 
 Para ver as mudanças, acesse o histórico do `git` no endereço:
-1. https://github.com/ufsc/ufscthesisx/commits/master
+1. https://github.com/ufsc/ufscthesisx-light/commits/master
 
 Ou clone este repositório e execute seguinte comando do cliente git:
 ```bash
