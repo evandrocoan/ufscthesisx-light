@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         # os: [ ubuntu-latest, macos-latest, windows-latest ]
-        os: [ ubuntu-latest ]
+        os: [ ubuntu-latest, macos-latest ]
 
       # Keep all systems running if something fails
       fail-fast: false
@@ -37,7 +37,6 @@ jobs:
             set -x
             apk add make unzip zip python3
             make release version="${RELEASE_NAME}"
-
-      - name: Check release file
-        run: |
             unzip "${RELEASE_NAME}"
+            cd workspace
+            make debug=1
