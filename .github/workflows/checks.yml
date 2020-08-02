@@ -39,4 +39,4 @@ jobs:
             make release version="${RELEASE_NAME}"
             unzip "${RELEASE_NAME}"
             cd workspace
-            make debug=1
+            make debug=1 halt=1
