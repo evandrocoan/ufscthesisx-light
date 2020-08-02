@@ -25,9 +25,12 @@ jobs:
           submodules: recursive
 
       - name: Configure OS environment variables
+        id: environment_variables
         run: |
           set -x
-          echo "::set-env name=RELEASE_NAME::1.0.${{ github.run_number }}"
+          RELEASE_NAME="1.0.${{ github.run_number }}.zip"
+          echo "::set-env name=RELEASE_NAME::${RELEASE_NAME}"
+          echo "::set-output name=RELEASE_NAME::${RELEASE_NAME}"
 
       - name: Create release
         uses: xu-cheng/texlive-action/full@v1
@@ -40,3 +43,29 @@ jobs:
             unzip "${RELEASE_NAME}"
             cd workspace
             make debug=1 halt=1
+
+      # https://github.com/actions/create-release
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: latest-version
+          release_name: Latest Version
+          body: |
+            Contém as alterações mais recentes na ramificação principal deste projeto.
+          draft: false
+          prerelease: false
+
+      # https://github.com/actions/upload-release-asset
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ steps.environment_variables.outputs.RELEASE_NAME }}
+          asset_name: ufscthesisx-light.zip
+          asset_content_type: application/zip
