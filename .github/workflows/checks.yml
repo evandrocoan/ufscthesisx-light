@@ -52,6 +52,7 @@ jobs:
 
       # https://github.com/actions/create-release
       - name: Create Release
+        if: github.ref == 'refs/heads/master'
         id: create_release
         uses: actions/create-release@v1
         env:
@@ -70,6 +71,7 @@ jobs:
 
       # https://github.com/actions/upload-release-asset
       - name: Upload .zip Asset
+        if: github.ref == 'refs/heads/master'
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -80,6 +82,7 @@ jobs:
           asset_content_type: application/zip
 
       - name: Upload .pdf Asset
+        if: github.ref == 'refs/heads/master'
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
