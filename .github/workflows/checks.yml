@@ -58,9 +58,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ steps.environment_variables.outputs.RELEASE_TAG }}
-          release_name: Latest Version
+          release_name: Version ${{ steps.environment_variables.outputs.RELEASE_TAG }}
           body: |
             Contém as alterações mais recentes na ramificação principal deste projeto.
+
+            Basta baixar o arquivo `${{ steps.environment_variables.outputs.RELEASE_FILE }}`, descompactar e compilar o arquivo `main.tex`!
+
+            `https://github.com/evandrocoan/ufscthesisx-light/releases/latest/download/${{ steps.environment_variables.outputs.RELEASE_FILE }}` - [*`${{ steps.environment_variables.outputs.RELEASE_FILE }}`*](https://github.com/evandrocoan/ufscthesisx-light/releases/latest/download/${{ steps.environment_variables.outputs.RELEASE_FILE }})
           draft: false
           prerelease: false
 
