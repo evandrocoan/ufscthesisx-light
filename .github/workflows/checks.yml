@@ -36,19 +36,19 @@ jobs:
           echo "::set-output name=RELEASE_FILE::${RELEASE_FILE}"
           echo "::set-output name=RELEASE_NAME::${RELEASE_NAME}"
 
-      # - name: Create release
-      #   if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
-      #   uses: xu-cheng/texlive-action/full@v1
-      #   with:
-      #     run: |
-      #       set -x
-      #       apk add make unzip zip python3
+      - name: Create release
+        if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
+        uses: xu-cheng/texlive-action/full@v1
+        with:
+          run: |
+            set -x
+            apk add make unzip zip python3
 
-      #       make release version="${{ steps.environment_variables.outputs.RELEASE_NAME }}"
-      #       unzip "${{ steps.environment_variables.outputs.RELEASE_NAME }}"
+            make release version="${{ steps.environment_variables.outputs.RELEASE_NAME }}"
+            unzip "${{ steps.environment_variables.outputs.RELEASE_NAME }}"
 
-      #       cd workspace
-      #       make debug=1 halt=1
+            cd workspace
+            make debug=1 halt=1
 
       # https://github.com/actions/create-release
       - name: Create Release
