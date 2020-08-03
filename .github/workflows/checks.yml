@@ -58,9 +58,14 @@ jobs:
       #       cd workspace
       #       make debug=1 halt=1
 
+      # https://stackoverflow.com/questions/61495123/completely-delete-release-with-github-api
+      - name: Delete Last Release Asset
+        if: steps.environment_variables.outputs.RELEASE_FILE_EXISTS == 'true'
+        run: |
+          curl --cookie -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" --request DELETE "https://github.com/${GITHUB_REPOSITORY}/releases/${{ steps.environment_variables.outputs.RELEASE_TAG }}"
+
       # https://github.com/actions/create-release
       - name: Create Release
-        if: steps.environment_variables.outputs.RELEASE_TAG_EXISTS == 'false'
         id: create_release
         uses: actions/create-release@v1
         env:
@@ -72,12 +77,6 @@ jobs:
             Contém as alterações mais recentes na ramificação principal deste projeto.
           draft: false
           prerelease: false
-
-      # https://stackoverflow.com/questions/61495123/completely-delete-release-with-github-api
-      - name: Delete Last Release Asset
-        if: steps.environment_variables.outputs.RELEASE_FILE_EXISTS == 'true'
-        run: |
-          curl --cookie -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" --request DELETE "https://github.com/${GITHUB_REPOSITORY}/releases/${{ steps.environment_variables.outputs.RELEASE_TAG }}"
 
       # https://github.com/actions/upload-release-asset
       - name: Upload Release Asset
