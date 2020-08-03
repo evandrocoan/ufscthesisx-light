@@ -28,21 +28,13 @@ jobs:
         id: environment_variables
         run: |
           set -x
-          RELEASE_NAME="1.0.${{ github.run_number }}.zip"
+          RELEASE_TAG="1.0.${{ github.run_number }}"
           RELEASE_FILE="ufscthesisx-light.zip"
-          RELEASE_TAG="latest-version"
+          RELEASE_NAME="${RELEASE_TAG}.zip"
 
           echo "::set-output name=RELEASE_TAG::${RELEASE_TAG}"
-          echo "::set-output name=RELEASE_NAME::${RELEASE_NAME}"
           echo "::set-output name=RELEASE_FILE::${RELEASE_FILE}"
-
-          if curl --output /dev/null --silent --head --fail https://github.com/${GITHUB_REPOSITORY}/releases/${RELEASE_TAG};
-          then :
-            echo "::set-output name=RELEASE_FILE_EXISTS::true";
-          else
-            echo "::set-output name=RELEASE_FILE_EXISTS::false";
-          fi
-          touch ${RELEASE_NAME}
+          echo "::set-output name=RELEASE_NAME::${RELEASE_NAME}"
 
       # - name: Create release
       #   if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
@@ -57,13 +49,6 @@ jobs:
 
       #       cd workspace
       #       make debug=1 halt=1
-
-      # https://stackoverflow.com/questions/61495123/completely-delete-release-with-github-api
-      - name: Delete Last Release Asset
-        if: steps.environment_variables.outputs.RELEASE_FILE_EXISTS == 'true'
-        run: |
-          set -x
-          curl --fail --show-error -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -X DELETE "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/tag/${{ steps.environment_variables.outputs.RELEASE_TAG }}"
 
       # https://github.com/actions/create-release
       - name: Create Release
