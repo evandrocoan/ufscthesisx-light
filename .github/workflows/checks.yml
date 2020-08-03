@@ -69,8 +69,7 @@ jobs:
           prerelease: false
 
       # https://github.com/actions/upload-release-asset
-      - name: Upload Release Asset
-        id: upload-release-asset
+      - name: Upload .zip Asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -79,3 +78,13 @@ jobs:
           asset_path: ${{ steps.environment_variables.outputs.RELEASE_NAME }}
           asset_name: ${{ steps.environment_variables.outputs.RELEASE_FILE }}
           asset_content_type: application/zip
+
+      - name: Upload .pdf Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: workspace/main.pdf
+          asset_name: pdf_exemplo.pdf
+          asset_content_type: application/pdf
