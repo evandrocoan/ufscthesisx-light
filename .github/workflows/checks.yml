@@ -36,6 +36,13 @@ jobs:
           echo "::set-output name=RELEASE_FILE::${RELEASE_FILE}"
           echo "::set-output name=RELEASE_NAME::${RELEASE_NAME}"
 
+          if curl --head --fail --show-error https://github.com/${GITHUB_REPOSITORY}/releases/${RELEASE_TAG};
+          then :
+            echo "::set-output name=RELEASE_FILE_EXISTS::true";
+          else
+            echo "::set-output name=RELEASE_FILE_EXISTS::false";
+          fi
+
       - name: Create release
         if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
         uses: xu-cheng/texlive-action/full@v1
@@ -52,7 +59,7 @@ jobs:
 
       # https://github.com/actions/create-release
       - name: Create Release
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/master' && steps.environment_variables.outputs.RELEASE_FILE_EXISTS == 'false'
         id: create_release
         uses: actions/create-release@v1
         env:
@@ -71,7 +78,7 @@ jobs:
 
       # https://github.com/actions/upload-release-asset
       - name: Upload .zip Asset
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/master' && steps.environment_variables.outputs.RELEASE_FILE_EXISTS == 'false'
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -82,7 +89,7 @@ jobs:
           asset_content_type: application/zip
 
       - name: Upload .pdf Asset
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/master' && steps.environment_variables.outputs.RELEASE_FILE_EXISTS == 'false'
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
