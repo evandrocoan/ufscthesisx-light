@@ -73,6 +73,11 @@ jobs:
             Basta baixar o arquivo `${{ steps.environment_variables.outputs.RELEASE_FILE }}`, descompactar e compilar o arquivo `main.tex`
 
             [`${{ steps.environment_variables.outputs.RELEASE_FILE }}`](https://github.com/${{ github.repository }}/releases/latest/download/${{ steps.environment_variables.outputs.RELEASE_FILE }}) - `https://github.com/${{ github.repository }}/releases/latest/download/${{ steps.environment_variables.outputs.RELEASE_FILE }}`
+
+            Ou abrir ele diretamente no Overleaf
+
+            [`overleaf upload`](https://overleaf.com/docs?snip_uri=https://github.com/${{ github.repository }}/releases/latest/download/${{ steps.environment_variables.outputs.RELEASE_FILE }}) - `https://overleaf.com/docs?snip_uri=https://github.com/${{ github.repository }}/releases/latest/download/${{ steps.environment_variables.outputs.RELEASE_FILE }}`
+
           draft: false
           prerelease: false
 
