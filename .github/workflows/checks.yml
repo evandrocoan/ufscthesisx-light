@@ -62,7 +62,7 @@ jobs:
       - name: Delete Last Release Asset
         if: steps.environment_variables.outputs.RELEASE_FILE_EXISTS == 'true'
         run: |
-          curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -X DELETE "https://github.com/${GITHUB_REPOSITORY}/releases/${{ steps.environment_variables.outputs.RELEASE_TAG }}" --cookie-jar
+          curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -X DELETE "https://github.com/${GITHUB_REPOSITORY}/releases/${{ steps.environment_variables.outputs.RELEASE_TAG }}" --cookie-jar cookies.txt
 
       # https://github.com/actions/create-release
       - name: Create Release
