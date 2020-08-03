@@ -11,7 +11,7 @@ Esse projeto não está vinculado a nenhum órgão da UFSC.
 ## Modelo em PDF
 
 Se você quer ter uma ideia de como é o modelo,
-a compilação deve resultar no seguinte [PDF](../../../ufscthesisx-images/blob/master/pdf_exemplo_completo_light.pdf)
+a compilação deve resultar no seguinte [PDF](../../../ufscthesisx-images/blob/master/pdf_exemplo_completo_light.pdf).
 
 
 ## Instalar `LaTeX` e `abnTeX2`
@@ -43,8 +43,7 @@ sudo apt-get install xzdec
 ## Baixando diretamente modelo UFSC
 
 Caso queria,
-pode baixar diretamente o arquivo `zip` em
-https://github.com/UFSC/ufscthesisx-light/releases e descompacte o arquivo.
+pode baixar diretamente o arquivo `zip` em [releases](../../releases) e descompacte o arquivo.
 
 
 ## Utilizando `git` para baixar o modelo USFC
@@ -70,14 +69,13 @@ e carrega todos os pacotes necessários e incluir os arquivos LaTeX que contém 
 ## Utilizando Overleaf para digitar sua tese com modelo UFSC
 
 Se você quiser,
-pode utilizar o [Overleaf](www.overleaf.com),
+pode utilizar o [Overleaf](https://www.overleaf.com),
 um sistema de editoração *online* de textos em LaTeX.
 
-Se você já tiver uma conta no Overleaf pode fazer o *upload* do arquivo `.zip` baixado em
-https://github.com/UFSC/ufscthesisx-light/releases.
+Se você já tiver uma conta no Overleaf pode fazer o *upload* do arquivo `.zip` baixado em [releases](../../releases).
 
 Você também pode fazer o *upload* automaticamente para Overleaf com a última versão disponível clicando
-[aqui](http://overleaf.com/docs?snip_uri=https://github.com/UFSC/ufscthesisx-light/releases/latest/download/ufscthesisx-light.zip).
+[aqui](https://overleaf.com/docs?snip_uri=https://github.com/UFSC/ufscthesisx-light/releases/latest/download/ufscthesisx-light.zip).
 
 
 # Uso
@@ -246,14 +244,13 @@ a Biblioteca Central disponibiliza um site específico para as normas e foi com 
 
 # Mudanças
 
-Para ver as mudanças, acesse o histórico do `git` no endereço:
-1. https://github.com/ufsc/ufscthesisx-light/commits/master
+Para ver as mudanças, acesse o histórico do `git` no endereço [commits/master](../../commits/master).
 
 Ou clone este repositório e execute seguinte comando do cliente git:
 ```bash
+# https://git-scm.com/book/en/v2/Git-Basics-Viewing-the-Commit-History
 git log
 ```
-1. https://git-scm.com/book/en/v2/Git-Basics-Viewing-the-Commit-History
 
 
 # Licença
