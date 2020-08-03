@@ -8,6 +8,10 @@ este projeto foi renomeado para `ufscthesisx-light`.
 
 Esse projeto não está vinculado a nenhum órgão da UFSC.
 
+Qualquer problema com a utilização ou com o modelo em si,
+basta criar um issue aqui no GitHub no nosso issue tracker: [issues](../../issues)
+
+
 ## Modelo em PDF
 
 Se você quer ter uma ideia de como é o modelo,
