@@ -25,18 +25,57 @@ jobs:
           submodules: recursive
 
       - name: Configure OS environment variables
+        id: environment_variables
         run: |
           set -x
-          echo "::set-env name=RELEASE_NAME::1.0.${{ github.run_number }}"
+          RELEASE_TAG="1.0.${{ github.run_number }}"
+          RELEASE_FILE="ufscthesisx-light.zip"
+          RELEASE_NAME="${RELEASE_TAG}.zip"
+
+          echo "::set-output name=RELEASE_TAG::${RELEASE_TAG}"
+          echo "::set-output name=RELEASE_FILE::${RELEASE_FILE}"
+          echo "::set-output name=RELEASE_NAME::${RELEASE_NAME}"
 
       - name: Create release
-        uses: xu-cheng/texlive-action/full@v1
         if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
+        uses: xu-cheng/texlive-action/full@v1
         with:
           run: |
             set -x
             apk add make unzip zip python3
-            make release version="${RELEASE_NAME}"
-            unzip "${RELEASE_NAME}"
+
+            make release version="${{ steps.environment_variables.outputs.RELEASE_NAME }}"
+            unzip "${{ steps.environment_variables.outputs.RELEASE_NAME }}"
+
             cd workspace
             make debug=1 halt=1
+
+      # https://github.com/actions/create-release
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.environment_variables.outputs.RELEASE_TAG }}
+          release_name: Versão ${{ steps.environment_variables.outputs.RELEASE_TAG }}
+          body: |
+            Contém as alterações mais recentes na ramificação principal deste projeto
+
+            Basta baixar o arquivo `${{ steps.environment_variables.outputs.RELEASE_FILE }}`, descompactar e compilar o arquivo `main.tex`
+
+            [*`${{ steps.environment_variables.outputs.RELEASE_FILE }}`*](https://github.com/${{ github.repository }}/releases/latest/download/${{ steps.environment_variables.outputs.RELEASE_FILE }}) - `https://github.com/${{ github.repository }}/releases/latest/download/${{ steps.environment_variables.outputs.RELEASE_FILE }}`
+          draft: false
+          prerelease: false
+
+      # https://github.com/actions/upload-release-asset
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ steps.environment_variables.outputs.RELEASE_NAME }}
+          asset_name: ${{ steps.environment_variables.outputs.RELEASE_FILE }}
+          asset_content_type: application/zip
