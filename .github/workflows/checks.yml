@@ -63,7 +63,7 @@ jobs:
         if: steps.environment_variables.outputs.RELEASE_FILE_EXISTS == 'true'
         run: |
           set -x
-          curl --fail --show-error -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -X DELETE "https://api.github.com/${GITHUB_REPOSITORY}/releases/tag/${{ steps.environment_variables.outputs.RELEASE_TAG }}"
+          curl --fail --show-error -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -X DELETE "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases/tag/${{ steps.environment_variables.outputs.RELEASE_TAG }}"
 
       # https://github.com/actions/create-release
       - name: Create Release
